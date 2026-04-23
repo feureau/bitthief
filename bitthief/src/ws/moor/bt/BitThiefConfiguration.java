@@ -52,12 +52,13 @@ public class BitThiefConfiguration {
   }
 
   private BitThiefConfiguration(String name) throws IOException {
-    InputStream stream = ClassLoader.getSystemResourceAsStream(name);
-    if (stream != null) {
-      properties = new Properties();
-      properties.load(stream);
-    } else {
-      throw new IOException("stream is not valid");
+    try (InputStream stream = ClassLoader.getSystemResourceAsStream(name)) {
+      if (stream != null) {
+        properties = new Properties();
+        properties.load(stream);
+      } else {
+        throw new IOException("stream is not valid");
+      }
     }
   }
 

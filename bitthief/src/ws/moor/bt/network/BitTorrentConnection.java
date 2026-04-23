@@ -159,7 +159,7 @@ public class BitTorrentConnection implements PacketHandler {
     if (inbound && torrentDownload == null || !inbound && torrentDownload != null) {
       return;
     }
-    throw new IllegalArgumentException("inbound/torrentDownload do not macth");
+    throw new IllegalArgumentException("inbound/torrentDownload do not match");
   }
 
   private synchronized void close(ConnectionCloseReason reason) {
@@ -224,7 +224,7 @@ public class BitTorrentConnection implements PacketHandler {
       return false;
     }
 
-    return !(!torrentDownload.getConfiguration().isDownloadingFromSeeders() && remote_having.hasAll());
+    return torrentDownload.getConfiguration().isDownloadingFromSeeders() || !remote_having.hasAll();
   }
 
   private void requestNewBlocks(int numberOfBlocks) {
@@ -307,7 +307,7 @@ public class BitTorrentConnection implements PacketHandler {
     return socket.getTimeSinceLastReceive() > RECEIVE_TIMEOUT * 1000;
   }
 
-  private boolean timeToSendKeepAlivePacket() {
+  private synchronized boolean timeToSendKeepAlivePacket() {
     return properlySetUp && socket.getTimeSinceLastSend() > KEEPALIVE_TIMEOUT * 1000;
   }
 
@@ -533,7 +533,7 @@ public class BitTorrentConnection implements PacketHandler {
     returnRequestedBlocks();
   }
 
-  public void handleRequestPacket(RequestPacket packet) {
+  public synchronized void handleRequestPacket(RequestPacket packet) {
     incrementCounter("network.request.in");
     if (local_choked) {
       prefixLogger.debug("peer sent a request despite being choked");
@@ -542,16 +542,16 @@ public class BitTorrentConnection implements PacketHandler {
     uploader.addRequest(packet.getBlock());
   }
 
-  public void handleCancelPacket(CancelPacket packet) {
+  public synchronized void handleCancelPacket(CancelPacket packet) {
     incrementCounter("network.cancel.in");
     uploader.cancelRequest(packet.getBlock());
   }
 
-  public boolean isRemoteInterested() {
+  public synchronized boolean isRemoteInterested() {
     return remote_interested;
   }
 
-  public boolean isProperlySetUp() {
+  public synchronized boolean isProperlySetUp() {
     return properlySetUp;
   }
 

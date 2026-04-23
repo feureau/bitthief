@@ -20,15 +20,18 @@
 
 package ws.moor.bt;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.joran.spi.JoranException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.LoggerFactory;
 import ws.moor.bt.downloader.TorrentDownload;
 import ws.moor.bt.downloader.TorrentDownloadConfiguration;
 import ws.moor.bt.gui.BitThiefGUI;
@@ -39,9 +42,8 @@ import ws.moor.bt.util.StringUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 import java.util.Arrays;
-import java.util.Properties;
 
 public class BitThief {
 
@@ -106,14 +108,20 @@ public class BitThief {
   }
 
   private static void configureStaticStuff(BitThiefConfiguration configuration) throws IOException {
-    InputStream stream = ClassLoader.getSystemResourceAsStream(configuration.getLoggingPropertyFile());
-    if (stream != null) {
-      Properties properties = new Properties();
-      properties.load(stream);
-      PropertyConfigurator.configure(properties);
-    } else {
-      System.err.println("unable to load logging property file");
-      System.exit(1);
+    String resourceName = configuration.getLoggingPropertyFile();
+    URL resource = ClassLoader.getSystemResource(resourceName);
+    if (resource == null) {
+      throw new IOException("unable to load logging property file: " + resourceName);
+    }
+
+    LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+    JoranConfigurator configurator = new JoranConfigurator();
+    configurator.setContext(context);
+    context.reset();
+    try {
+      configurator.doConfigure(resource);
+    } catch (JoranException e) {
+      throw new IOException("unable to configure logging", e);
     }
   }
 
@@ -172,7 +180,7 @@ public class BitThief {
   }
 
   private static CommandLine parseCommandLine(String[] args) {
-    CommandLineParser parser = new GnuParser();
+    CommandLineParser parser = new DefaultParser();
     Options options = createOptions();
 
     try {
@@ -195,97 +203,100 @@ public class BitThief {
 
   private static Options createOptions() {
     Options options = new Options();
-    options.addOption(OptionBuilder.
-        withLongOpt("metafile").
-        withDescription("meta file").
-        withArgName("file").
-        hasArg().
-        create(METAFILE_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("output").
-        withDescription("output directory").
-        withArgName("directory").
-        hasArg().
-        create(OUTPUTDIR_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("port").
-        withDescription("listening port (default: " +
-            TorrentDownloadConfiguration.DEFAULT_LISTENING_PORT + ")").
-        withArgName("port").
-        hasArg().
-        create(PORT_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("gui").
-        withDescription("show gui").
-        create(GUI_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("noseeds").
-        withDescription("do not leech from seeds").
-        create(NOSEEDS_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("noinitiate").
-        withDescription("do not initiate outgoing connections").
-        create(NOINITIATE_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("honestbitfield").
-        withDescription("send real bit field (default: send empty field)").
-        create(HONESTBITFIELD_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("bitfieldpercent").
-        withDescription("percent of pieces to set in bitfield (default: " +
-            TorrentDownloadConfiguration.DEFAULT_BITFIELD_PERCENT + ")").
-        withArgName("%").
-        hasArg().
-        create(BITFIELDPERCENT_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("announceinterval").
-        withDescription("initial announce interval (default: " +
-            TorrentDownloadConfiguration.DEFAULT_ANNOUNCE_INTERVAL + ")").
-        withArgName("seconds").
-        hasArg().
-        create(ANNOUNCEINTERVAL_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("shareratio").
-        withDescription("share ratio to fake (default: " +
-            TorrentDownloadConfiguration.DEFAULT_SHARE_RATIO + ")").
-        withArgName("ratio").
-        hasArg().
-        create(SHARERATIO_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("quitonfinish").
-        withDescription("quit on finish").
-        create(QUITONFINISH_OPTION));
-    options.addOption(OptionBuilder.
-        withDescription("max data upload rate (default: " +
-            TorrentDownloadConfiguration.DEFAULT_MAX_UPLOAD_RATE + ")").
-        withArgName("KB/s").
-        hasArg().
-        create(MAXUPLOAD_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("uploadreal").
-        withDescription("do upload real data").
-        create(UPLOADREAL_OPTION));
-    options.addOption(OptionBuilder.
-        withDescription("number of upload slots (default: " +
-            TorrentDownloadConfiguration.DEFAULT_UPLOAD_SLOTS + ")").
-        withArgName("slots").
-        hasArg().
-        create(UPLOADSLOTS_OPTION));
-    options.addOption(OptionBuilder.
-        withLongOpt("upload").
-        withDescription("do upload (default: " +
-            TorrentDownloadConfiguration.DEFAULT_UPLOADING_STATUS + ")").
-        create(DOUPLOAD_OPTION));
-    options.addOption(OptionBuilder.
-        withDescription("percentage of pieces to deny for uploading (default: " +
-            TorrentDownloadConfiguration.DEFAULT_PIECE_UPLOAD_DENY_PERCENTAGE + ")").
-        withArgName("%").
-        hasArg().
-        create(DENYPERCENTAGE_OPTION));
-    options.addOption(OptionBuilder.
-        withDescription("display this help text").
-        withLongOpt("help").
-        create(HELP_OPTION));
+    options.addOption(Option.builder(METAFILE_OPTION)
+        .longOpt("metafile")
+        .desc("meta file")
+        .argName("file")
+        .hasArg()
+        .build());
+    options.addOption(Option.builder(OUTPUTDIR_OPTION)
+        .longOpt("output")
+        .desc("output directory")
+        .argName("directory")
+        .hasArg()
+        .build());
+    options.addOption(Option.builder(PORT_OPTION)
+        .longOpt("port")
+        .desc("listening port (default: " +
+            TorrentDownloadConfiguration.DEFAULT_LISTENING_PORT + ")")
+        .argName("port")
+        .hasArg()
+        .build());
+    options.addOption(Option.builder(GUI_OPTION)
+        .longOpt("gui")
+        .desc("show gui")
+        .build());
+    options.addOption(Option.builder(NOSEEDS_OPTION)
+        .longOpt("noseeds")
+        .desc("do not leech from seeds")
+        .build());
+    options.addOption(Option.builder(NOINITIATE_OPTION)
+        .longOpt("noinitiate")
+        .desc("do not initiate outgoing connections")
+        .build());
+    options.addOption(Option.builder(HONESTBITFIELD_OPTION)
+        .longOpt("honestbitfield")
+        .desc("send real bit field (default: send empty field)")
+        .build());
+    options.addOption(Option.builder(BITFIELDPERCENT_OPTION)
+        .longOpt("bitfieldpercent")
+        .desc("percent of pieces to set in bitfield (default: " +
+            TorrentDownloadConfiguration.DEFAULT_BITFIELD_PERCENT + ")")
+        .argName("%")
+        .hasArg()
+        .build());
+    options.addOption(Option.builder(ANNOUNCEINTERVAL_OPTION)
+        .longOpt("announceinterval")
+        .desc("initial announce interval (default: " +
+            TorrentDownloadConfiguration.DEFAULT_ANNOUNCE_INTERVAL + ")")
+        .argName("seconds")
+        .hasArg()
+        .build());
+    options.addOption(Option.builder(SHARERATIO_OPTION)
+        .longOpt("shareratio")
+        .desc("share ratio to fake (default: " +
+            TorrentDownloadConfiguration.DEFAULT_SHARE_RATIO + ")")
+        .argName("ratio")
+        .hasArg()
+        .build());
+    options.addOption(Option.builder(QUITONFINISH_OPTION)
+        .longOpt("quitonfinish")
+        .desc("quit on finish")
+        .build());
+    options.addOption(Option.builder()
+        .longOpt(MAXUPLOAD_OPTION)
+        .desc("max data upload rate (default: " +
+            TorrentDownloadConfiguration.DEFAULT_MAX_UPLOAD_RATE + ")")
+        .argName("KB/s")
+        .hasArg()
+        .build());
+    options.addOption(Option.builder(UPLOADREAL_OPTION)
+        .longOpt("uploadreal")
+        .desc("do upload real data")
+        .build());
+    options.addOption(Option.builder()
+        .longOpt(UPLOADSLOTS_OPTION)
+        .desc("number of upload slots (default: " +
+            TorrentDownloadConfiguration.DEFAULT_UPLOAD_SLOTS + ")")
+        .argName("slots")
+        .hasArg()
+        .build());
+    options.addOption(Option.builder(DOUPLOAD_OPTION)
+        .longOpt("upload")
+        .desc("do upload (default: " +
+            TorrentDownloadConfiguration.DEFAULT_UPLOADING_STATUS + ")")
+        .build());
+    options.addOption(Option.builder()
+        .longOpt(DENYPERCENTAGE_OPTION)
+        .desc("percentage of pieces to deny for uploading (default: " +
+            TorrentDownloadConfiguration.DEFAULT_PIECE_UPLOAD_DENY_PERCENTAGE + ")")
+        .argName("%")
+        .hasArg()
+        .build());
+    options.addOption(Option.builder(HELP_OPTION)
+        .longOpt("help")
+        .desc("display this help text")
+        .build());
     return options;
   }
 }

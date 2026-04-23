@@ -81,16 +81,15 @@ public class BInteger extends Number implements BEntity {
   }
 
   static BInteger parse(PushbackInputStream stream) throws IOException {
-    byte[] buffer = new byte[32];
-    int k = 0;
+    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
     int read = stream.read();
     byte code = BDecoder.checkValidRead(read);
     while (code != BInteger.END_CODE) {
-      buffer[k++] = code;
+      buffer.write(code);
       read = stream.read();
       code = BDecoder.checkValidRead(read);
     }
-    String number = new String(buffer, 0, k);
+    String number = buffer.toString();
     return new BInteger(Long.parseLong(number));
   }
 }

@@ -41,6 +41,26 @@ public class MetaInfoTest extends ExtendedTestCase {
     assertEquals(expected, fileInfo.constructFile(parent));
   }
 
+  public void testConstructFileRejectsParentDirectoryTraversal() {
+    MetaInfo.FileInfo fileInfo = new MetaInfo.FileInfo(new String[] {"foo", "..", "bar"}, 100);
+    try {
+      fileInfo.constructFile(new File("/home/user"));
+      fail("should reject path traversal");
+    } catch (IllegalArgumentException e) {
+      assertTrue(e.getMessage().contains("invalid path component"));
+    }
+  }
+
+  public void testConstructFileRejectsAbsolutePath() {
+    MetaInfo.FileInfo fileInfo = new MetaInfo.FileInfo(new String[] {"foo", "/etc", "bar"}, 100);
+    try {
+      fileInfo.constructFile(new File("/home/user"));
+      fail("should reject absolute path");
+    } catch (IllegalArgumentException e) {
+      assertTrue(e.getMessage().contains("invalid path component"));
+    }
+  }
+
   public void testPieceCount() throws MalformedURLException {
     MetaInfo.FileInfo fileInfoA = new MetaInfo.FileInfo(new String[] {"foo", "bar"}, 100);
     MetaInfo.FileInfo fileInfoB = new MetaInfo.FileInfo(new String[] {"foo", "bar2"}, 100);

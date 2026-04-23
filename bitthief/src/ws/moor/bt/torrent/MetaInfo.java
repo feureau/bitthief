@@ -158,6 +158,11 @@ public abstract class MetaInfo {
     }
 
     public File constructFile(File parent) {
+      for (String component : path) {
+        if (component.contains("..") || new File(component).isAbsolute()) {
+          throw new IllegalArgumentException("invalid path component: " + component);
+        }
+      }
       String subpath = StringUtil.join(Arrays.asList(path), File.separator);
       return new File(parent, subpath);
     }

@@ -69,4 +69,16 @@ public class BIntegerTest extends ExtendedTestCase {
     PushbackInputStream is = new PushbackInputStream(source);
     assertEquals(a, BInteger.parse(is));
   }
+
+  public void testParseWithLargeInteger() throws IOException {
+    String largeNumber = "999999999999999999999999999999e";
+    InputStream source = new ByteArrayInputStream(largeNumber.getBytes());
+    PushbackInputStream is = new PushbackInputStream(source);
+    try {
+      BInteger.parse(is);
+      fail("Should throw NumberFormatException for excessively large integer");
+    } catch (IOException e) {
+      assertTrue(e.getMessage().contains("999999999999999999999999999999"));
+    }
+  }
 }

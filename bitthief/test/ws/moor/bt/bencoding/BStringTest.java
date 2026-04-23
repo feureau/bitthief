@@ -22,7 +22,10 @@ package ws.moor.bt.bencoding;
 
 import ws.moor.bt.util.ExtendedTestCase;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PushbackInputStream;
 
 /**
  * TODO(pmoor): Javadoc
@@ -48,5 +51,27 @@ public class BStringTest extends ExtendedTestCase {
 
   public void testEncode() throws IOException {
     assertArrayEquals("1:a".getBytes(), a.encode());
+  }
+
+  public void testParseWithLargeLengthPrefix() throws IOException, ParseException {
+    String longPrefix = "123456789012345678901234567890:";
+    String testData = longPrefix + "test";
+    InputStream source = new ByteArrayInputStream(testData.getBytes());
+    PushbackInputStream is = new PushbackInputStream(source);
+    BString result = BString.parse(is);
+    assertEquals("test", result.toString());
+  }
+
+  public void testParseWithVeryLongLengthPrefix() throws IOException, ParseException {
+    String veryLongPrefix = "999999999999999999999999999999:";
+    String testData = veryLongPrefix + "data";
+    InputStream source = new ByteArrayInputStream(testData.getBytes());
+    PushbackInputStream is = new PushbackInputStream(source);
+    try {
+      BString.parse(is);
+      fail("Should throw NumberFormatException for excessively large length");
+    } catch (ParseException e) {
+      assertTrue(e.getMessage().contains("could not parse number"));
+    }
   }
 }

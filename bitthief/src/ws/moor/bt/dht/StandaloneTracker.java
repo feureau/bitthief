@@ -20,16 +20,18 @@
 
 package ws.moor.bt.dht;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.joran.spi.JoranException;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.LoggerFactory;
 import ws.moor.bt.BitThiefConfiguration;
 import ws.moor.bt.Environment;
 import ws.moor.bt.util.LoggingUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -65,14 +67,20 @@ public class StandaloneTracker {
   }
 
   private static void configureStaticStuff(BitThiefConfiguration configuration) throws IOException {
-    InputStream stream = ClassLoader.getSystemResourceAsStream(configuration.getLoggingPropertyFile());
-    if (stream != null) {
-      Properties properties = new Properties();
-      properties.load(stream);
-      PropertyConfigurator.configure(properties);
-    } else {
-      System.err.println("unable to load logging property file");
-      System.exit(1);
+    String resourceName = configuration.getLoggingPropertyFile();
+    URL resource = ClassLoader.getSystemResource(resourceName);
+    if (resource == null) {
+      throw new IOException("unable to load logging property file: " + resourceName);
+    }
+
+    LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+    JoranConfigurator configurator = new JoranConfigurator();
+    configurator.setContext(context);
+    context.reset();
+    try {
+      configurator.doConfigure(resource);
+    } catch (JoranException e) {
+      throw new IOException("unable to configure logging", e);
     }
   }
 

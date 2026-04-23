@@ -192,7 +192,11 @@ public class TorrentDownload {
   }
 
   public int getPort() {
-    return getDefaultListener().getPort();
+    BitTorrentListener listener = getDefaultListener();
+    if (listener == null) {
+      return -1;
+    }
+    return listener.getPort();
   }
 
   public PieceAnnounceStrategy getPieceAnnounceStrategy(BitTorrentConnection connection) {
@@ -229,22 +233,20 @@ public class TorrentDownload {
     }
   }
 
-  public CounterRepository getCounterRepository() {
+  public synchronized CounterRepository getCounterRepository() {
     if (counterRepository == null) {
       createCounterRepository();
     }
     return counterRepository;
   }
 
-  private synchronized void createCounterRepository() {
-    if (counterRepository == null) {
-      RealCounterRepository repo =
-          RealCounterRepository.fromResource("stats.properties");
-      if (environment.getConfiguration().doLogStats()) {
-        repo.setFileForWriting(environment.getConfiguration().getStatsLogFile());
-      }
-      counterRepository = repo;
+  private void createCounterRepository() {
+    RealCounterRepository repo =
+        RealCounterRepository.fromResource("stats.properties");
+    if (environment.getConfiguration().doLogStats()) {
+      repo.setFileForWriting(environment.getConfiguration().getStatsLogFile());
     }
+    counterRepository = repo;
   }
 
   private class Maintenance implements Runnable {
@@ -267,8 +269,7 @@ public class TorrentDownload {
 
     private void quitOnFinish() {
       if (configuration.doQuitOnFinish() && isFinished()) {
-        logger.info("exiting, finished download");
-        System.exit(0);
+        logger.info("finished download, stopping torrent session");`r`n        stop();
       }
     }
   }
@@ -302,3 +303,4 @@ public class TorrentDownload {
     getCounterRepository().getCounter("network.connections.out").set(out);
   }
 }
+

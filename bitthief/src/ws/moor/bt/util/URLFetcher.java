@@ -48,14 +48,20 @@ public class URLFetcher {
     InputStream stream = null;
     try {
       stream = getStream();
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      StreamUtil.copy(stream, baos);
+      return baos.toByteArray();
     } catch (IOException e) {
       logger.warn("exception during fetching of url " + url, e);
       return null;
+    } finally {
+      if (stream != null) {
+        try {
+          stream.close();
+        } catch (IOException ignored) {
+        }
+      }
     }
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    StreamUtil.copy(stream, baos);
-    stream.close();
-    return baos.toByteArray();
   }
 
   private InputStream getStream() throws IOException {

@@ -59,7 +59,7 @@ public class Bucket {
     latestValue = value;
   }
 
-  public long get(long time) {
+  public synchronized long get(long time) {
     int bucket = determineBucketForTime(time);
     if (bucket == Integer.MAX_VALUE) {
       return getLatestValue();
@@ -72,24 +72,30 @@ public class Bucket {
     }
   }
 
-  public long getOldestTime() {
+  public synchronized long getOldestTime() {
     return oldestValidTime;
   }
 
-  public long getNewestTime() {
+  public synchronized long getNewestTime() {
     return currentBucketStartTime + timeInterval - 1;
   }
 
-  public long getLatestValue() {
+  public synchronized long getLatestValue() {
     return latestValue;
   }
 
   public double getDerivative(long time) {
-    if (time < getOldestTime() || time > getNewestTime()) {
+    long oldestTime;
+    long newestTime;
+    synchronized (this) {
+      oldestTime = oldestValidTime;
+      newestTime = currentBucketStartTime + timeInterval - 1;
+    }
+    if (time < oldestTime || time > newestTime) {
       return 0.0;
     }
 
-    long earlyTime = Math.max(time - timeInterval, getOldestTime());
+    long earlyTime = Math.max(time - timeInterval, oldestTime);
     long earlyValue = get(earlyTime);
     long lateValue = get(earlyTime + timeInterval);
     return (double) (lateValue - earlyValue) / timeInterval;

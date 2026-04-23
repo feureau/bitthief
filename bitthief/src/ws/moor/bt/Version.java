@@ -43,27 +43,44 @@ public class Version {
   }
 
   private static void loadProperties() {
-    InputStream stream =
-        ClassLoader.getSystemResourceAsStream("version.properties");
-    if (stream != null) {
-      Properties versionProperties = new Properties();
-      try {
+    loadVersionProperties();
+    loadRevisionProperties();
+    fallbackToManifestRevision();
+    constructVersionStrings();
+  }
+
+  private static void loadVersionProperties() {
+    try (InputStream stream = ClassLoader.getSystemResourceAsStream("version.properties")) {
+      if (stream != null) {
+        Properties versionProperties = new Properties();
         versionProperties.load(stream);
         extractVersions(versionProperties);
-      } catch (IOException e) {}
+      }
+    } catch (IOException ignored) {
     }
+  }
 
-    stream =
-        ClassLoader.getSystemResourceAsStream("revision.properties");
-    if (stream != null) {
-      Properties revisionProperties = new Properties();
-      try {
+  private static void loadRevisionProperties() {
+    try (InputStream stream = ClassLoader.getSystemResourceAsStream("revision.properties")) {
+      if (stream != null) {
+        Properties revisionProperties = new Properties();
         revisionProperties.load(stream);
         extractRevision(revisionProperties);
-      } catch (IOException e) {}
+      }
+    } catch (IOException ignored) {
     }
+  }
 
-    constructVersionStrings();
+  private static void fallbackToManifestRevision() {
+    if (revision == null || revision.length() == 0 || "exported".equals(revision)) {
+      Package versionPackage = Version.class.getPackage();
+      if (versionPackage != null) {
+        String build = versionPackage.getImplementationVersion();
+        if (build != null && build.length() > 0) {
+          revision = build;
+        }
+      }
+    }
   }
 
   private static void constructVersionStrings() {
@@ -74,7 +91,7 @@ public class Version {
     builder.append(".");
     builder.append(tiny);
     shortString = builder.toString();
-    
+
     if (revision != null) {
       builder.append("-");
       builder.append(revision);
@@ -83,7 +100,10 @@ public class Version {
   }
 
   private static void extractRevision(Properties properties) {
-    revision = properties.getProperty("version.revision").trim();
+    String value = properties.getProperty("version.revision");
+    if (value != null) {
+      revision = value.trim();
+    }
   }
 
   private static void extractVersions(Properties properties) {

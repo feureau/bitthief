@@ -244,14 +244,22 @@ public class TrackerResponse {
     }
 
     public static PeerInfo fromDictionary(BDictionary dictionary) {
-      PeerId id = new PeerId(((BString) dictionary.getByString("peer id")).getBytes());
-      InetAddress address = null;
+      BEntity peerIdEntity = dictionary.getByString("peer id");
+      BEntity ipEntity = dictionary.getByString("ip");
+      BEntity portEntity = dictionary.getByString("port");
+
+      if (!(peerIdEntity instanceof BString) || !(ipEntity instanceof BString) || !(portEntity instanceof BInteger)) {
+        return null;
+      }
+
+      PeerId id = new PeerId(((BString) peerIdEntity).getBytes());
+      InetAddress address;
       try {
-        address = InetAddress.getByName(dictionary.getByString("ip").toString());
+        address = InetAddress.getByName(ipEntity.toString());
       } catch (UnknownHostException e) {
         return null;
       }
-      int port = ((BInteger) dictionary.getByString("port")).intValue();
+      int port = ((BInteger) portEntity).intValue();
       return new PeerInfo(id, address, port);
     }
 

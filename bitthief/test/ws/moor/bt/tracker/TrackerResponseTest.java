@@ -142,6 +142,28 @@ public class TrackerResponseTest extends ExtendedTestCase {
     assertEquals(7777, info.getPort());
   }
 
+  public void testPeerInfoReturnsNullOnMissingFields() {
+    BDictionary<BEntity> incomplete = new BDictionary<BEntity>();
+    assertNull(TrackerResponse.PeerInfo.fromDictionary(incomplete));
+
+    incomplete.put(new BString("peer id"), new BString(PeerId.createRandom().getBytes()));
+    assertNull(TrackerResponse.PeerInfo.fromDictionary(incomplete));
+
+    incomplete.put(new BString("ip"), new BString("192.168.0.5"));
+    assertNull(TrackerResponse.PeerInfo.fromDictionary(incomplete));
+
+    incomplete.put(new BString("port"), new BString("7777"));
+    assertNull(TrackerResponse.PeerInfo.fromDictionary(incomplete));
+  }
+
+  public void testPeerInfoReturnsNullOnWrongTypes() {
+    BDictionary<BEntity> wrong = new BDictionary<BEntity>();
+    wrong.put(new BString("peer id"), new BInteger(123));
+    wrong.put(new BString("ip"), new BString("192.168.0.5"));
+    wrong.put(new BString("port"), new BInteger(7777));
+    assertNull(TrackerResponse.PeerInfo.fromDictionary(wrong));
+  }
+
   public void testGetSocketAddress() throws UnknownHostException {
     TrackerResponse.PeerInfo info =
         TrackerResponse.PeerInfo.fromDictionary(

@@ -1,0 +1,14 @@
+<configuration>
+  <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d (%relative) [%thread] %-5level %logger - %msg%n</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+    </filter>
+  </appender>
+
+  <root level="ERROR">
+    <appender-ref ref="Console" />
+  </root>
+</configuration>

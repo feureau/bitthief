@@ -54,16 +54,15 @@ public class BString extends ByteArray implements BEntity {
   }
 
   static BString parse(PushbackInputStream stream) throws IOException, ParseException {
-    byte[] buffer = new byte[32];
-    int k = 0;
+    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
     int read = stream.read();
     byte code = BDecoder.checkValidRead(read);
     while (code != ':') {
-      buffer[k++] = code;
+      buffer.write(code);
       read = stream.read();
       code = BDecoder.checkValidRead(read);
     }
-    String number = new String(buffer, 0, k);
+    String number = buffer.toString();
 
     int stringLength = 0;
     try {
