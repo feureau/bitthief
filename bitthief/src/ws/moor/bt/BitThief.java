@@ -80,7 +80,7 @@ public class BitThief {
     Environment environment = new Environment(bitThiefConfiguration);
 
     boolean showGui = true;
-    if (line.hasOption(METAFILE_OPTION) && line.hasOption(OUTPUTDIR_OPTION)) {
+    if (line != null && line.hasOption(METAFILE_OPTION) && line.hasOption(OUTPUTDIR_OPTION)) {
       File torrentFile = new File(line.getOptionValue(METAFILE_OPTION));
       File targetDirectory = new File(line.getOptionValue(OUTPUTDIR_OPTION));
 

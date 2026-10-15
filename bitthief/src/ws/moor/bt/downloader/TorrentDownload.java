@@ -172,7 +172,7 @@ public class TorrentDownload {
   public long getBytesDownloaded() {
     int availablePieceCount =
         pieceManager.getValidPieces().getAvailablePieceCount();
-    return availablePieceCount * getMetaInfo().getPieceLength();
+    return (long) availablePieceCount * getMetaInfo().getPieceLength();
   }
 
   public long getBytesLeft() {

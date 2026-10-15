@@ -84,8 +84,8 @@ public class DummyNextBlockStrategy implements NextBlockStrategy {
 
   private void adaptRecentBlocksSet() {
     int overallMissingPieces = pieceManager.getValidPieces().getMissingPieceCount();
-    int missingBlocks = metaInfo.getPieceLength() * overallMissingPieces / BLOCK_LENGTH;
-    int category = missingBlocks / 512;
+    long missingBlocks = (long) metaInfo.getPieceLength() * overallMissingPieces / BLOCK_LENGTH;
+    int category = (int) (missingBlocks / 512);
     category = Math.max(1, Math.min(8, category));
     int newSize = category * 512;
     if (recentBlocks.size() != newSize) {
