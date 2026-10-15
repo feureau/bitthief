@@ -20,7 +20,7 @@
 
 package ws.moor.bt.downloader;
 
-import org.easymock.classextension.EasyMock;
+import org.easymock.EasyMock;
 import ws.moor.bt.network.BitTorrentConnection;
 import ws.moor.bt.storage.BitField;
 import ws.moor.bt.torrent.MetaInfo;

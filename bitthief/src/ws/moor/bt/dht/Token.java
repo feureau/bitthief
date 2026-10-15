@@ -43,6 +43,13 @@ public class Token extends ByteArray {
 
   public static TimeSource timeSource = SystemTimeSource.INSTANCE;
 
+  static synchronized void resetForTesting() {
+    SECRET_LAST_CHANGED = 0;
+    for (int i = 0; i < SECRETS.length; i++) {
+      SECRETS[i] = ByteUtil.randomByteArray(SECRET_LENGTH);
+    }
+  }
+
   public Token(byte[] bytes) {
     super(bytes);
   }

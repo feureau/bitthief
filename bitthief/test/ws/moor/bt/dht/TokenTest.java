@@ -37,6 +37,7 @@ public class TokenTest extends ExtendedTestCase {
   protected void setUp() throws Exception {
     super.setUp();
     timeSource = new AdjustableTimeSource();
+    Token.resetForTesting();
     Token.timeSource = timeSource;
   }
 

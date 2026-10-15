@@ -31,7 +31,7 @@ import java.util.List;
 public class MovingDerivative {
 
   public static TimeSeries createDerivative(TimeSeries series, long miliseconds) {
-    TimeSeries result = new TimeSeries(series.getKey().toString(), series.getTimePeriodClass());
+    TimeSeries result = new TimeSeries(series.getKey().toString());
 
     List<TimeSeriesDataItem> dataItems = series.getItems();
 

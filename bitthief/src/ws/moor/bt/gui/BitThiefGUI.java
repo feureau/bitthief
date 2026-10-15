@@ -20,7 +20,6 @@
 
 package ws.moor.bt.gui;
 
-import org.jfree.ui.tabbedui.VerticalLayout;
 import ws.moor.bt.Environment;
 import ws.moor.bt.Version;
 import ws.moor.bt.downloader.TorrentDownload;
@@ -29,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import java.awt.BorderLayout;
@@ -55,7 +55,8 @@ public class BitThiefGUI {
 
     window = createWindow();
     window.setLayout(new BorderLayout());
-    boardsContainer = new JPanel(new VerticalLayout());
+    boardsContainer = new JPanel();
+    boardsContainer.setLayout(new BoxLayout(boardsContainer, BoxLayout.Y_AXIS));
     window.add(boardsContainer, BorderLayout.CENTER);
   }
 

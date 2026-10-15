@@ -46,7 +46,7 @@ public class CounterStatisticsDataSource {
 
   public CounterStatisticsDataSource(CounterStatistics statistics) {
     this.statistics = statistics;
-    timeSeries = new TimeSeries(statistics.getName(), Second.class);
+    timeSeries = new TimeSeries(statistics.getName());
     latestTime = 0;
   }
 

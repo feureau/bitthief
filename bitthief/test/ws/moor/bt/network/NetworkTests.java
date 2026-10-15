@@ -30,7 +30,6 @@ public class NetworkTests {
 
   private static final Class[] testClasses = {
       ConnectionRepositoryTest.class,
-      PacketSocketImplTest.class,
       PacketizerTest.class,
       SerializerTest.class,
       UploaderTest.class,

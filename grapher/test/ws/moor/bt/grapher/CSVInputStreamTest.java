@@ -20,7 +20,7 @@
 
 package ws.moor.bt.grapher;
 
-import ws.moor.bt.util.ExtendedTestCase;
+import junit.framework.TestCase;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -28,7 +28,7 @@ import java.io.IOException;
 /**
  * TODO(pmoor): Javadoc
  */
-public class CSVInputStreamTest extends ExtendedTestCase {
+public class CSVInputStreamTest extends TestCase {
 
   public void testAllFine() throws IOException {
     String src = "A\t47\t8\n" +

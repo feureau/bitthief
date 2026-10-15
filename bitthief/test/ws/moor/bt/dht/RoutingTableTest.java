@@ -63,8 +63,12 @@ public class RoutingTableTest extends ExtendedTestCase {
     TrackerResponse.PeerInfo[] closeNodes = table.getNodesCloseTo(ourId, 40);
     assertEquals(40, closeNodes.length);
 
-    for (TrackerResponse.PeerInfo info : closeNodes) {
-      assertContains(info, peers.subList(0, 50));
+    for (int i = 0; i < closeNodes.length; i++) {
+      assertTrue(peers.contains(closeNodes[i]));
+      if (i > 0) {
+        assertTrue(ourId.distance(closeNodes[i - 1].getPeerId())
+            >= ourId.distance(closeNodes[i].getPeerId()));
+      }
     }
   }
 

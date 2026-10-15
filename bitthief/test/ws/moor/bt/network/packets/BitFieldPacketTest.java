@@ -20,7 +20,7 @@
 
 package ws.moor.bt.network.packets;
 
-import org.easymock.classextension.EasyMock;
+import org.easymock.EasyMock;
 import ws.moor.bt.storage.BitField;
 import ws.moor.bt.util.ByteUtil;
 import ws.moor.bt.util.ExtendedTestCase;

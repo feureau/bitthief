@@ -20,7 +20,7 @@
 
 package ws.moor.bt.storage;
 
-import org.easymock.classextension.EasyMock;
+import org.easymock.EasyMock;
 import ws.moor.bt.Environment;
 import ws.moor.bt.downloader.Block;
 import ws.moor.bt.stats.FakeRepository;

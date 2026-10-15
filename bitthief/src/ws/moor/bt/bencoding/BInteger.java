@@ -90,6 +90,10 @@ public class BInteger extends Number implements BEntity {
       code = BDecoder.checkValidRead(read);
     }
     String number = buffer.toString();
-    return new BInteger(Long.parseLong(number));
+    try {
+      return new BInteger(Long.parseLong(number));
+    } catch (NumberFormatException e) {
+      throw new IOException("could not parse number: " + number, e);
+    }
   }
 }

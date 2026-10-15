@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="ws.moor.bt.FunctionalTests" time="2.501" tests="0" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="F:\GitHub\bitthief\bitthief\target\test-classes;F:\GitHub\bitthief\bitthief\target\classes;C:\Users\Feureau\.m2\repository\commons-cli\commons-cli\1.9.0\commons-cli-1.9.0.jar;C:\Users\Feureau\.m2\repository\commons-codec\commons-codec\1.18.0\commons-codec-1.18.0.jar;C:\Users\Feureau\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\Feureau\.m2\repository\org\slf4j\log4j-over-slf4j\2.0.17\log4j-over-slf4j-2.0.17.jar;C:\Users\Feureau\.m2\repository\ch\qos\logback\logback-classic\1.5.32\logback-classic-1.5.32.jar;C:\Users\Feureau\.m2\repository\ch\qos\logback\logback-core\1.5.32\logback-core-1.5.32.jar;C:\Users\Feureau\.m2\repository\org\jfree\jfreechart\1.5.5\jfreechart-1.5.5.jar;C:\Users\Feureau\.m2\repository\org\junit\jupiter\junit-jupiter\5.14.0\junit-jupiter-5.14.0.jar;C:\Users\Feureau\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.14.0\junit-jupiter-api-5.14.0.jar;C:\Users\Feureau\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Feureau\.m2\repository\org\junit\platform\junit-platform-commons\1.14.0\junit-platform-commons-1.14.0.jar;C:\Users\Feureau\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.14.0\junit-jupiter-params-5.14.0.jar;C:\Users\Feureau\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.14.0\junit-jupiter-engine-5.14.0.jar;C:\Users\Feureau\.m2\repository\org\junit\vintage\junit-vintage-engine\5.14.0\junit-vintage-engine-5.14.0.jar;C:\Users\Feureau\.m2\repository\org\junit\platform\junit-platform-engine\1.14.0\junit-platform-engine-1.14.0.jar;C:\Users\Feureau\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Feureau\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\Feureau\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Feureau\.m2\repository\org\easymock\easymock\5.6.0\easymock-5.6.0.jar;C:\Users\Feureau\.m2\repository\net\bytebuddy\byte-buddy\1.17.5\byte-buddy-1.17.5.jar;C:\Users\Feureau\.m2\repository\org\ow2\asm\asm\9.8\asm-9.8.jar;C:\Users\Feureau\.m2\repository\org\objenesis\objenesis\3.4\objenesis-3.4.jar;"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Asia/Bangkok"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.7.6-hotspot\bin"/>
+    <property name="sun.java.command" value="C:\Users\Feureau\AppData\Local\Temp\surefire18103926477281943108\surefirebooter-20260804033728275_3.jar C:\Users\Feureau\AppData\Local\Temp\surefire18103926477281943108 2026-08-04T03-37-28_071-jvmRun1 surefire-20260804033728275_1tmp surefire_0-20260804033728275_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="F:\GitHub\bitthief\bitthief\target\test-classes;F:\GitHub\bitthief\bitthief\target\classes;C:\Users\Feureau\.m2\repository\commons-cli\commons-cli\1.9.0\commons-cli-1.9.0.jar;C:\Users\Feureau\.m2\repository\commons-codec\commons-codec\1.18.0\commons-codec-1.18.0.jar;C:\Users\Feureau\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\Feureau\.m2\repository\org\slf4j\log4j-over-slf4j\2.0.17\log4j-over-slf4j-2.0.17.jar;C:\Users\Feureau\.m2\repository\ch\qos\logback\logback-classic\1.5.32\logback-classic-1.5.32.jar;C:\Users\Feureau\.m2\repository\ch\qos\logback\logback-core\1.5.32\logback-core-1.5.32.jar;C:\Users\Feureau\.m2\repository\org\jfree\jfreechart\1.5.5\jfreechart-1.5.5.jar;C:\Users\Feureau\.m2\repository\org\junit\jupiter\junit-jupiter\5.14.0\junit-jupiter-5.14.0.jar;C:\Users\Feureau\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.14.0\junit-jupiter-api-5.14.0.jar;C:\Users\Feureau\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Feureau\.m2\repository\org\junit\platform\junit-platform-commons\1.14.0\junit-platform-commons-1.14.0.jar;C:\Users\Feureau\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.14.0\junit-jupiter-params-5.14.0.jar;C:\Users\Feureau\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.14.0\junit-jupiter-engine-5.14.0.jar;C:\Users\Feureau\.m2\repository\org\junit\vintage\junit-vintage-engine\5.14.0\junit-vintage-engine-5.14.0.jar;C:\Users\Feureau\.m2\repository\org\junit\platform\junit-platform-engine\1.14.0\junit-platform-engine-1.14.0.jar;C:\Users\Feureau\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Feureau\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\Feureau\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Feureau\.m2\repository\org\easymock\easymock\5.6.0\easymock-5.6.0.jar;C:\Users\Feureau\.m2\repository\net\bytebuddy\byte-buddy\1.17.5\byte-buddy-1.17.5.jar;C:\Users\Feureau\.m2\repository\org\ow2\asm\asm\9.8\asm-9.8.jar;C:\Users\Feureau\.m2\repository\org\objenesis\objenesis\3.4\objenesis-3.4.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\Feureau"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-04-15"/>
+    <property name="java.home" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.7.6-hotspot"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="F:\GitHub\bitthief\bitthief"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\Feureau\AppData\Local\Temp\surefire18103926477281943108\surefirebooter-20260804033728275_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.7+6-LTS"/>
+    <property name="user.name" value="Feureau"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-21.0.7+6"/>
+    <property name="localRepository" value="C:\Users\Feureau\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\Feureau\AppData\Local\Temp\"/>
+    <property name="java.version" value="21.0.7"/>
+    <property name="user.dir" value="F:\GitHub\bitthief\bitthief"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="git.commit.id.abbrev" value="1f8e6d7"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.7.6-hotspot\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\PowerShell\7;;C:\Program Files\Eclipse Adoptium\jdk-21.0.7.6-hotspot\bin;C:\Program Files\Microsoft MPI\Bin\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Users\Feureau\AppData\Roaming\Hunspell\bin;C:\Program Files (x86)\GnuWin32\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\MKVToolNix;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\ProgramData\chocolatey\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Calibre2\;C:\Program Files\Git\cmd;C:\Program Files\PuTTY\;C:\Program Files\CMake\bin;C:\Users\Feureau\AppData\Roaming\Tools\bin;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\GTK3-Runtime Win64\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PowerShell\7\;C:\Program Files\nodejs\;C:\Program Files\Cloudflare\Cloudflare WARP\;\\?\C:\Users\Feureau\AppData\Local\Programs\Jan\resources\bin;F:\AI\.unsloth\bin\;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.1\bin;C:\Users\Feureau\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\Feureau\AppData\Local\Programs\Python\Python313\;C:\Users\Feureau\AppData\Local\Programs\Python\Launcher\;F:\AI\ComfyUI-Krita\uv;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\bin\x64;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\bin;C:\Program Files\Eclipse Adoptium\jdk-21.0.7.6-hotspot\bin;C:\Program Files\Microsoft MPI\Bin\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Users\Feureau\AppData\Roaming\Hunspell\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Program Files\dotnet\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;F:\GitHub\Small-Scripts\Programming;C:\Users\Feureau\AppData\Roaming\Tools;C:\Users\Feureau\.cache\lm-studio\bin;C:\Program Files\MKVToolNix;C:\Users\Feureau\AppData\Roaming\mpv;C:\Users\Feureau\AppData\Local\GitHubDesktop\bin;C:\Users\Feureau\AppData\Local\Programs\Ollama;C:\Users\Feureau\AppData\Local\Programs\Zed\bin;C:\Users\Feureau\AppData\Local\Programs\Antigravity\bin;C:\Users\Feureau\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Feureau\AppData\Local\Pandoc\;C:\Program Files\Tesseract-OCR;C:\Users\Feureau\.dotnet\tools;C:\Users\Feureau\AppData\Local\Microsoft\WindowsApps;C:\Users\Feureau\Flutter SDK\flutter\bin;C:\Users\Feureau\AppData\Local\Programs\Antigravity IDE\bin;C:\Users\Feureau\AppData\Roaming\npm;F:\ai\npm-global;C:\Users\Feureau\AppData\Local\Microsoft\WinGet\Packages\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="21.0.7+6-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+</testsuite>

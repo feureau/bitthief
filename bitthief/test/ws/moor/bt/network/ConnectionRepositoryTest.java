@@ -20,7 +20,7 @@
 
 package ws.moor.bt.network;
 
-import org.easymock.classextension.EasyMock;
+import org.easymock.EasyMock;
 import ws.moor.bt.downloader.TorrentDownload;
 import ws.moor.bt.util.ByteUtil;
 import ws.moor.bt.util.ExtendedTestCase;

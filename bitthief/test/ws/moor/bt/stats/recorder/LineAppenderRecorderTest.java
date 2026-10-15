@@ -20,7 +20,7 @@
 
 package ws.moor.bt.stats.recorder;
 
-import org.easymock.classextension.EasyMock;
+import org.easymock.EasyMock;
 import ws.moor.bt.util.ExtendedTestCase;
 
 import java.io.IOException;

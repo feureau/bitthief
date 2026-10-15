@@ -64,7 +64,7 @@ public class ChartBuilder {
   }
 
   private TimeSeries constructSeries(String name, CSVStream stream) {
-    TimeSeries series = new TimeSeries(name, FixedMillisecond.class);
+    TimeSeries series = new TimeSeries(name);
     while (stream.hasMoreEntries()) {
       CSVEntry entry = stream.nextEntry();
       series.addOrUpdate(new FixedMillisecond(entry.getDate()), entry.getValue());

@@ -159,12 +159,20 @@ public abstract class MetaInfo {
 
     public File constructFile(File parent) {
       for (String component : path) {
-        if (component.contains("..") || new File(component).isAbsolute()) {
+        if (component.contains("..") || isAbsoluteComponent(component)) {
           throw new IllegalArgumentException("invalid path component: " + component);
         }
       }
       String subpath = StringUtil.join(Arrays.asList(path), File.separator);
       return new File(parent, subpath);
+    }
+
+    private static boolean isAbsoluteComponent(String component) {
+      if (component.startsWith("/") || component.startsWith("\\")) {
+        return true;
+      }
+      return component.length() >= 2 &&
+          Character.isLetter(component.charAt(0)) && component.charAt(1) == ':';
     }
   }
 }

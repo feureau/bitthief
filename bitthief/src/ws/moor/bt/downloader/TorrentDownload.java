@@ -269,7 +269,8 @@ public class TorrentDownload {
 
     private void quitOnFinish() {
       if (configuration.doQuitOnFinish() && isFinished()) {
-        logger.info("finished download, stopping torrent session");`r`n        stop();
+        logger.info("finished download, stopping torrent session");
+        stop();
       }
     }
   }

@@ -20,7 +20,7 @@
 
 package ws.moor.bt.network;
 
-import org.easymock.classextension.EasyMock;
+import org.easymock.EasyMock;
 import ws.moor.bt.network.packets.HandshakePacket;
 import ws.moor.bt.network.packets.KeepAlivePacket;
 import ws.moor.bt.network.packets.Packet;

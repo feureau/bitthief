@@ -53,13 +53,17 @@ public class BStringTest extends ExtendedTestCase {
     assertArrayEquals("1:a".getBytes(), a.encode());
   }
 
-  public void testParseWithLargeLengthPrefix() throws IOException, ParseException {
+  public void testParseWithLargeLengthPrefix() throws IOException {
     String longPrefix = "123456789012345678901234567890:";
     String testData = longPrefix + "test";
     InputStream source = new ByteArrayInputStream(testData.getBytes());
     PushbackInputStream is = new PushbackInputStream(source);
-    BString result = BString.parse(is);
-    assertEquals("test", result.toString());
+    try {
+      BString.parse(is);
+      fail("Should throw ParseException for excessively large length");
+    } catch (ParseException e) {
+      assertTrue(e.getMessage().contains("could not parse number"));
+    }
   }
 
   public void testParseWithVeryLongLengthPrefix() throws IOException, ParseException {

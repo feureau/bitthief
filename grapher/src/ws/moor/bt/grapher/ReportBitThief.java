@@ -20,7 +20,7 @@
 
 package ws.moor.bt.grapher;
 
-import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 
 import java.io.File;
@@ -110,19 +110,19 @@ public class ReportBitThief extends Report {
     htmlFile.append("Total Down: ").append(getLastValue("network.rawbytes.in") / 1024 / 1024).append("MB").append("<br/>\n");
     htmlFile.append("Total Up: ").append(getLastValue("network.rawbytes.out") / 1024 / 1024).append("MB").append("<br/>\n");
     File piecesFile = new File(directory, "pieces.png");
-    ChartUtilities.saveChartAsPNG(piecesFile, piecesChart, ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
+    ChartUtils.saveChartAsPNG(piecesFile, piecesChart, ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
     appendHTMLForGraph(htmlFile, piecesFile, "Pieces", ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
     File rawBytesFile = new File(directory, "rawbytes.png");
-    ChartUtilities.saveChartAsPNG(rawBytesFile, rawBytesChart, ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
+    ChartUtils.saveChartAsPNG(rawBytesFile, rawBytesChart, ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
     appendHTMLForGraph(htmlFile, rawBytesFile, "Raw Bytes", ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
     File trackerFile = new File(directory, "tracker.png");
-    ChartUtilities.saveChartAsPNG(trackerFile, trackerChart, ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
+    ChartUtils.saveChartAsPNG(trackerFile, trackerChart, ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
     appendHTMLForGraph(htmlFile, trackerFile, "Tracker", ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
     File connectionFile = new File(directory, "connections.png");
-    ChartUtilities.saveChartAsPNG(connectionFile, connectionChart, ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
+    ChartUtils.saveChartAsPNG(connectionFile, connectionChart, ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
     appendHTMLForGraph(htmlFile, connectionFile, "Connections", ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
     File blockFile = new File(directory, "blocks.png");
-    ChartUtilities.saveChartAsPNG(blockFile, blockChart, ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
+    ChartUtils.saveChartAsPNG(blockFile, blockChart, ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
     appendHTMLForGraph(htmlFile, blockFile, "Blocks", ReportBitThief.WIDTH, ReportBitThief.HEIGHT);
 
     os.write(htmlFile.toString().getBytes());

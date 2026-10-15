@@ -20,7 +20,7 @@
 
 package ws.moor.bt.stats;
 
-import org.easymock.classextension.EasyMock;
+import org.easymock.EasyMock;
 import ws.moor.bt.stats.recorder.Recorder;
 import ws.moor.bt.util.AdjustableTimeSource;
 import ws.moor.bt.util.ExtendedTestCase;

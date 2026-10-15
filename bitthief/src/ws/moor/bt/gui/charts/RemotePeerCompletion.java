@@ -27,7 +27,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.statistics.HistogramType;
-import org.jfree.ui.RectangleInsets;
+import org.jfree.chart.ui.RectangleInsets;
 import ws.moor.bt.downloader.TorrentDownload;
 import ws.moor.bt.network.BitTorrentConnection;
 import ws.moor.bt.storage.BitField;

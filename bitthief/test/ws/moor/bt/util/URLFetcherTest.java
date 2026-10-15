@@ -39,6 +39,7 @@ public class URLFetcherTest extends ExtendedTestCase {
 
     HttpServer.RequestHandler handler = new HttpServer.RequestHandler() {
       public void handleRequest(String[] request, OutputStream result) throws IOException {
+        result.write(("HTTP/1.0 200 OK\r\nContent-Length: " + originalData.length + "\r\n\r\n").getBytes());
         result.write(originalData);
         if (!request[0].contains("GET /theFile HTTP")) {
           errorMessage[0] = "GET request was not valid";
@@ -54,7 +55,7 @@ public class URLFetcherTest extends ExtendedTestCase {
       waited += 10;
     }
     
-    URL url = new URL("http://localhost:" + server.getListeningPort() + "/theFile");
+    URL url = new URL("http://127.0.0.1:" + server.getListeningPort() + "/theFile");
     URLFetcherFactory factory = new URLFetcher.DefaultFactory();
     URLFetcher fetcher = factory.createURLFetcher(url);
 

@@ -20,7 +20,7 @@
 
 package ws.moor.bt.grapher;
 
-import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 
 import java.io.File;
@@ -84,15 +84,15 @@ public class ReportMainline extends Report {
     htmlFile.append("Total Down: ").append(getLastValue("downTotal") / 1024 / 1024).append("MB").append("<br/>\n");
     htmlFile.append("Total Up: ").append(getLastValue("upTotal") / 1024 / 1024).append("MB").append("<br/>\n");
     File rawbytefile = new File(directory, "rawbytes.png");
-    ChartUtilities.saveChartAsPNG(rawbytefile, rawBytesChart, ReportMainline.WIDTH, ReportMainline.HEIGHT);
+    ChartUtils.saveChartAsPNG(rawbytefile, rawBytesChart, ReportMainline.WIDTH, ReportMainline.HEIGHT);
     appendHTMLForGraph(htmlFile, rawbytefile, "Raw Bytes", ReportMainline.WIDTH, ReportMainline.HEIGHT);
     File trackerfile = new File(directory, "tracker.png");
     if (trackerChart != null) {
-      ChartUtilities.saveChartAsPNG(trackerfile, trackerChart, ReportMainline.WIDTH, ReportMainline.HEIGHT);
+      ChartUtils.saveChartAsPNG(trackerfile, trackerChart, ReportMainline.WIDTH, ReportMainline.HEIGHT);
       appendHTMLForGraph(htmlFile, trackerfile, "Tracker", ReportMainline.WIDTH, ReportMainline.HEIGHT);
     }
     File connectionfile = new File(directory, "connections.png");
-    ChartUtilities.saveChartAsPNG(connectionfile, connectionChart, ReportMainline.WIDTH, ReportMainline.HEIGHT);
+    ChartUtils.saveChartAsPNG(connectionfile, connectionChart, ReportMainline.WIDTH, ReportMainline.HEIGHT);
     appendHTMLForGraph(htmlFile, connectionfile, "Connections", ReportMainline.WIDTH, ReportMainline.HEIGHT);
 
     stream.write(htmlFile.toString().getBytes());

@@ -21,7 +21,7 @@
 package ws.moor.bt.util;
 
 import org.apache.log4j.Logger;
-import org.easymock.classextension.EasyMock;
+import org.easymock.EasyMock;
 
 /**
  * TODO(pmoor): Javadoc

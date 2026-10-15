@@ -20,8 +20,8 @@
 
 package ws.moor.bt.tracker;
 
-import org.easymock.classextension.EasyMock;
-import static org.easymock.classextension.EasyMock.*;
+import org.easymock.EasyMock;
+import static org.easymock.EasyMock.*;
 import ws.moor.bt.downloader.TorrentDownload;
 import ws.moor.bt.downloader.TorrentDownloadConfiguration;
 import ws.moor.bt.downloader.peermanager.PeerManager;
